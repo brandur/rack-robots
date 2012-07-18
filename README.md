@@ -15,7 +15,7 @@ export DISABLE_ROBOTS=true
 In a `config.ru` or equivalent:
 
 ``` ruby
-use Rack::Instruments
+use Rack::Robots
 run Sinatra::Application
 ```
 
