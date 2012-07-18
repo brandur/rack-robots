@@ -15,7 +15,7 @@ Disallow: /
         else
           [404, "Not found"]
         end
-        [status, { 'Content-Length' => body.length,
+        [status, { 'Content-Length' => body.length.to_s,
           'Content-Type' => 'text/plain' }, body]
       else
         @app.call(env)

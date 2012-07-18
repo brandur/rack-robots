@@ -13,7 +13,7 @@ describe Rack::Robots do
     ENV["DISABLE_ROBOTS"] = "true"
     status, headers, response = call("REQUEST_PATH" => "/robots.txt")
     status.must_equal(200)
-    headers.must_equal({ 'Content-Length' => response.length,
+    headers.must_equal({ 'Content-Length' => response.length.to_s,
       'Content-Type' => 'text/plain' })
     response.must_match(/Disallow: \//)
   end
@@ -28,7 +28,7 @@ describe Rack::Robots do
     ENV["DISABLE_ROBOTS"] = "false"
     status, headers, response = call("REQUEST_PATH" => "/robots.txt")
     status.must_equal(404)
-    headers.must_equal({ 'Content-Length' => response.length,
+    headers.must_equal({ 'Content-Length' => response.length.to_s,
       'Content-Type' => 'text/plain' })
     response.must_match(/Not found/)
   end
