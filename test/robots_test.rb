@@ -13,8 +13,7 @@ describe Rack::Robots do
     ENV["DISABLE_ROBOTS"] = "true"
     status, headers, response = call("REQUEST_PATH" => "/robots.txt")
     status.must_equal(200)
-    headers.must_equal({ 'Content-Length' => response.length.to_s,
-      'Content-Type' => 'text/plain' })
+    headers.must_equal({ 'Content-Type' => 'text/plain' })
     response.must_match(/Disallow: \//)
   end
 
@@ -24,19 +23,16 @@ describe Rack::Robots do
     response.must_match(/Disallow: \//)
   end
 
-  it "renders 404 when not true" do
+  it "passes through when not true" do
     ENV["DISABLE_ROBOTS"] = "false"
     status, headers, response = call("REQUEST_PATH" => "/robots.txt")
-    status.must_equal(404)
-    headers.must_equal({ 'Content-Length' => response.length.to_s,
-      'Content-Type' => 'text/plain' })
-    response.must_match(/Not found/)
+    [status, headers, response].must_equal([200, {}, ""])
   end
 
-  it "renders 404 when not set" do
+  it "passes through when not set" do
     ENV["DISABLE_ROBOTS"] = nil
     status, headers, response = call("REQUEST_PATH" => "/robots.txt")
-    status.must_equal(404)
+    [status, headers, response].must_equal([200, {}, ""])
   end
 
   it "passes through when robots is not matched" do
