@@ -6,7 +6,7 @@ module Rack
 
     def call(env)
       if env["REQUEST_PATH"] == "/robots.txt"
-        status, body = if %w{1 true}.include?(ENV["DISABLE_ROBOTS"])
+        status, body = if %w{1 true yes}.include?(ENV["DISABLE_ROBOTS"])
           [200, <<-eos]
 # this is a staging environment. please index the main site instead.
 User-agent: *
@@ -15,8 +15,7 @@ Disallow: /
         else
           [404, "Not found"]
         end
-        [status, { 'Content-Length' => body.length.to_s,
-          'Content-Type' => 'text/plain' }, body]
+        [status, { 'Content-Type' => 'text/plain' }, body]
       else
         @app.call(env)
       end
