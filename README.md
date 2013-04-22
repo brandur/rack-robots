@@ -12,7 +12,7 @@ Flag your staging and development environments:
 export DISABLE_ROBOTS=true
 
 # or on Heroku
-heroku config:add DISABLE_ROBOTS=true
+heroku config:set DISABLE_ROBOTS=true
 ```
 
 In a `config.ru` or equivalent:
